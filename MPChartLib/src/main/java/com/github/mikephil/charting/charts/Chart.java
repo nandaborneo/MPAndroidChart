@@ -1541,32 +1541,32 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      * @param pathOnSD e.g. "folder1/folder2/folder3"
      * @return returns true on success, false on error
      */
-    public boolean saveToPath(String title, String pathOnSD) {
+    // public boolean saveToPath(String title, String pathOnSD) {
 
 
 
-        Bitmap b = getChartBitmap();
+    //     Bitmap b = getChartBitmap();
 
-        OutputStream stream = null;
-        try {
-            stream = new FileOutputStream(Environment.getExternalStorageDirectory().getPath()
-                    + pathOnSD + "/" + title
-                    + ".png");
+    //     OutputStream stream = null;
+    //     try {
+    //         stream = new FileOutputStream(Environment.getExternalStorageDirectory().getPath()
+    //                 + pathOnSD + "/" + title
+    //                 + ".png");
 
-            /*
-             * Write bitmap to file using JPEG or PNG and 40% quality hint for
-             * JPEG.
-             */
-            b.compress(CompressFormat.PNG, 40, stream);
+    //         /*
+    //          * Write bitmap to file using JPEG or PNG and 40% quality hint for
+    //          * JPEG.
+    //          */
+    //         b.compress(CompressFormat.PNG, 40, stream);
 
-            stream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+    //         stream.close();
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //         return false;
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
     /**
      * Saves the current state of the chart to the gallery as an image type. The
@@ -1580,75 +1580,75 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      * @param quality         e.g. 50, min = 0, max = 100
      * @return returns true if saving was successful, false if not
      */
-    public boolean saveToGallery(String fileName, String subFolderPath, String fileDescription, Bitmap.CompressFormat
-            format, int quality) {
-        // restrain quality
-        if (quality < 0 || quality > 100)
-            quality = 50;
+    // public boolean saveToGallery(String fileName, String subFolderPath, String fileDescription, Bitmap.CompressFormat
+    //         format, int quality) {
+    //     // restrain quality
+    //     if (quality < 0 || quality > 100)
+    //         quality = 50;
 
-        long currentTime = System.currentTimeMillis();
+    //     long currentTime = System.currentTimeMillis();
 
-        File extBaseDir = Environment.getExternalStorageDirectory();
-        File file = new File(extBaseDir.getAbsolutePath() + "/DCIM/" + subFolderPath);
-        if (!file.exists()) {
-            if (!file.mkdirs()) {
-                return false;
-            }
-        }
+    //     File extBaseDir = Environment.getExternalStorageDirectory();
+    //     File file = new File(extBaseDir.getAbsolutePath() + "/DCIM/" + subFolderPath);
+    //     if (!file.exists()) {
+    //         if (!file.mkdirs()) {
+    //             return false;
+    //         }
+    //     }
 
-        String mimeType = "";
-        switch (format) {
-            case PNG:
-                mimeType = "image/png";
-                if (!fileName.endsWith(".png"))
-                    fileName += ".png";
-                break;
-            case WEBP:
-                mimeType = "image/webp";
-                if (!fileName.endsWith(".webp"))
-                    fileName += ".webp";
-                break;
-            case JPEG:
-            default:
-                mimeType = "image/jpeg";
-                if (!(fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")))
-                    fileName += ".jpg";
-                break;
-        }
+    //     String mimeType = "";
+    //     switch (format) {
+    //         case PNG:
+    //             mimeType = "image/png";
+    //             if (!fileName.endsWith(".png"))
+    //                 fileName += ".png";
+    //             break;
+    //         case WEBP:
+    //             mimeType = "image/webp";
+    //             if (!fileName.endsWith(".webp"))
+    //                 fileName += ".webp";
+    //             break;
+    //         case JPEG:
+    //         default:
+    //             mimeType = "image/jpeg";
+    //             if (!(fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")))
+    //                 fileName += ".jpg";
+    //             break;
+    //     }
 
-        String filePath = file.getAbsolutePath() + "/" + fileName;
-        FileOutputStream out = null;
-        try {
-            out = new FileOutputStream(filePath);
+    //     String filePath = file.getAbsolutePath() + "/" + fileName;
+    //     FileOutputStream out = null;
+    //     try {
+    //         out = new FileOutputStream(filePath);
 
-            Bitmap b = getChartBitmap();
-            b.compress(format, quality, out);
+    //         Bitmap b = getChartBitmap();
+    //         b.compress(format, quality, out);
 
-            out.flush();
-            out.close();
+    //         out.flush();
+    //         out.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
 
-            return false;
-        }
+    //         return false;
+    //     }
 
-        long size = new File(filePath).length();
+    //     long size = new File(filePath).length();
 
-        ContentValues values = new ContentValues(8);
+    //     ContentValues values = new ContentValues(8);
 
-        // store the details
-        values.put(Images.Media.TITLE, fileName);
-        values.put(Images.Media.DISPLAY_NAME, fileName);
-        values.put(Images.Media.DATE_ADDED, currentTime);
-        values.put(Images.Media.MIME_TYPE, mimeType);
-        values.put(Images.Media.DESCRIPTION, fileDescription);
-        values.put(Images.Media.ORIENTATION, 0);
-        values.put(Images.Media.DATA, filePath);
-        values.put(Images.Media.SIZE, size);
+    //     // store the details
+    //     values.put(Images.Media.TITLE, fileName);
+    //     values.put(Images.Media.DISPLAY_NAME, fileName);
+    //     values.put(Images.Media.DATE_ADDED, currentTime);
+    //     values.put(Images.Media.MIME_TYPE, mimeType);
+    //     values.put(Images.Media.DESCRIPTION, fileDescription);
+    //     values.put(Images.Media.ORIENTATION, 0);
+    //     values.put(Images.Media.DATA, filePath);
+    //     values.put(Images.Media.SIZE, size);
 
-        return getContext().getContentResolver().insert(Images.Media.EXTERNAL_CONTENT_URI, values) != null;
-    }
+    //     return getContext().getContentResolver().insert(Images.Media.EXTERNAL_CONTENT_URI, values) != null;
+    // }
 
     /**
      * Saves the current state of the chart to the gallery as a JPEG image. The
@@ -1659,9 +1659,9 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      * @param quality  e.g. 50, min = 0, max = 100
      * @return returns true if saving was successful, false if not
      */
-    public boolean saveToGallery(String fileName, int quality) {
-        return saveToGallery(fileName, "", "MPAndroidChart-Library Save", Bitmap.CompressFormat.PNG, quality);
-    }
+    // public boolean saveToGallery(String fileName, int quality) {
+    //     return saveToGallery(fileName, "", "MPAndroidChart-Library Save", Bitmap.CompressFormat.PNG, quality);
+    // }
 
     /**
      * Saves the current state of the chart to the gallery as a PNG image.
@@ -1670,9 +1670,9 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      * @param fileName e.g. "my_image"
      * @return returns true if saving was successful, false if not
      */
-    public boolean saveToGallery(String fileName) {
-        return saveToGallery(fileName, "", "MPAndroidChart-Library Save", Bitmap.CompressFormat.PNG, 40);
-    }
+    // public boolean saveToGallery(String fileName) {
+    //     return saveToGallery(fileName, "", "MPAndroidChart-Library Save", Bitmap.CompressFormat.PNG, 40);
+    // }
 
     /**
      * tasks to be done after the view is setup
