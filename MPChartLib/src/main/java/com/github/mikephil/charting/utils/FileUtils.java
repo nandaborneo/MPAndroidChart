@@ -123,38 +123,38 @@ public class FileUtils {
      * @param entries
      * @param path
      */
-    public static void saveToSdCard(List<Entry> entries, String path) {
+    // public static void saveToSdCard(List<Entry> entries, String path) {
 
-        File sdcard = Environment.getExternalStorageDirectory();
+    //     File sdcard = Environment.getExternalStorageDirectory();
 
-        File saved = new File(sdcard, path);
-        if (!saved.exists())
-        {
-            try
-            {
-                saved.createNewFile();
-            } catch (IOException e)
-            {
-                Log.e(LOG, e.toString());
-            }
-        }
-        try
-        {
-            // BufferedWriter for performance, true to set append to file flag
-            BufferedWriter buf = new BufferedWriter(new FileWriter(saved, true));
+    //     File saved = new File(sdcard, path);
+    //     if (!saved.exists())
+    //     {
+    //         try
+    //         {
+    //             saved.createNewFile();
+    //         } catch (IOException e)
+    //         {
+    //             Log.e(LOG, e.toString());
+    //         }
+    //     }
+    //     try
+    //     {
+    //         // BufferedWriter for performance, true to set append to file flag
+    //         BufferedWriter buf = new BufferedWriter(new FileWriter(saved, true));
 
-            for (Entry e : entries) {
+    //         for (Entry e : entries) {
 
-                buf.append(e.getY() + "#" + e.getX());
-                buf.newLine();
-            }
+    //             buf.append(e.getY() + "#" + e.getX());
+    //             buf.newLine();
+    //         }
 
-            buf.close();
-        } catch (IOException e)
-        {
-            Log.e(LOG, e.toString());
-        }
-    }
+    //         buf.close();
+    //     } catch (IOException e)
+    //     {
+    //         Log.e(LOG, e.toString());
+    //     }
+    // }
 
     public static List<BarEntry> loadBarEntriesFromAssets(AssetManager am, String path) {
 
